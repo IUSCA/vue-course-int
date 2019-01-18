@@ -1,0 +1,74 @@
+---
+# Place the nginx package repo file
+- template:
+    src: 'files/repo/nginx.repo'
+    dest: '/etc/yum.repos.d/nginx.repo'
+
+# Install nginx and dependent packages
+- name: 'install nginx packages'
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"
+
+# Place a sample html file to illustrate that nginx works
+- name: 'place html file'
+  copy:
+    src: 'files/html/index.html'
+    dest: '/usr/share/nginx/html/index.html'
+
+# Add a configuration file for default requests
+- name: 'place default conf file'
+  copy:
+    src: 'files/conf/default.conf'
+    dest: '/etc/nginx/conf.d/default.conf'
+
+# Add a configuration file for rady requests
+- name: 'place rady conf file'
+  copy:
+    src: 'files/conf/rady.conf'
+    dest: '/etc/nginx/conf.d/rady.conf'
+
+# Ensure the `/etc/grid-security/certs/rady.sca.iu.edu` directory exists
+- file:
+    path: '/etc/grid-security/certs/rady.sca.iu.edu'
+    state: directory
+    recurse: true
+
+# Add a dhparam file for ssl
+- name: 'place dhparam file for ssl'
+  copy:
+    src: 'files/ssl/dhparam.pem'
+    dest: '/etc/grid-security/certs/dhparam.pem'
+
+# Add a caONLY file for ssl
+- name: 'place caONLY file for ssl'
+  copy:
+    src: 'files/ssl/caONLY.pem'
+    dest: '/etc/grid-security/certs/rady.sca.iu.edu/caONLY.pem'
+
+# Add a certONLY file for ssl
+- name: 'place certONLY file for ssl'
+  copy:
+    src: 'files/ssl/certONLY.pem'
+    dest: '/etc/grid-security/certs/rady.sca.iu.edu/certONLY.pem'
+
+# Add a cert file for ssl
+- name: 'place cert file for ssl'
+  copy:
+    src: 'files/ssl/cert.pem'
+    dest: '/etc/grid-security/certs/rady.sca.iu.edu/cert.pem'
+
+# Add a key file for ssl
+- name: 'place key file for ssl'
+  copy:
+    src: 'files/ssl/key.pem'
+    dest: '/etc/grid-security/certs/rady.sca.iu.edu/key.pem'
+
+# Ensure that the nginx service starts on boot
+- name: 'enable nginx'
+  service:
+    name: nginx
+    state: started
+    enabled: true
+...

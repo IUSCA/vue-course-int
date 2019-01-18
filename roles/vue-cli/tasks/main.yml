@@ -1,0 +1,6 @@
+---
+- name: "Install @vue/cli"
+  npm:
+    name: "@vue/cli"
+    global: true
+...

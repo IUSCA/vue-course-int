@@ -1,0 +1,9 @@
+---
+github_repositories:
+  - { account: 'soichih', local_path: 'dicom', remote_path: 'node-dicom', version: 'master', root: true, ui: false, bower: false }
+  - { account: 'IUSCA', local_path: 'rady-qc', remote_path: 'rady-qc', version: 'master', root: true, ui: true, bower: 'ui/css' }
+  - { account: 'IUSCA', local_path: 'auth', remote_path: 'auth', version: 'master', root: true, ui: true, bower: false }
+  - { account: 'IUSCA', local_path: 'event', remote_path: 'event', version: 'master', root: true, ui: false, bower: false }
+  - { account: 'IUSCA', local_path: 'profile', remote_path: 'profile', version: 'master', root: true, ui: true, bower: 'ui' }
+  - { account: 'IUSCA', local_path: 'shared', remote_path: 'sca-shared', version: 'master', root: true, ui: false, bower: false }
+...

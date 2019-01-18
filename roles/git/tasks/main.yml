@@ -1,0 +1,14 @@
+---
+- name: 'copy gpg key to filesystem'
+  copy:
+    src: 'files/RPM-GPG-KEY-WANdisco'
+    dest: '/etc/pki/rpm-gpg/RPM-GPG-KEY-WANdisco'
+- template:
+    src: 'templates/wandisco-git.repo.j2'
+    dest: '/etc/yum.repos.d/wandisco-git.repo'
+- name: 'install git related packages'
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"
+...

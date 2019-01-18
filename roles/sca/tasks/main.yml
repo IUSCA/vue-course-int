@@ -1,0 +1,20 @@
+---
+- name: 'install baseline packages'
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"
+- name: 'create sca directory'
+  file:
+    path: '/opt/sca'
+    state: directory
+- name: 'ensure .ssh directory exists'
+  file:
+    path: '/home/vagrant/.ssh'
+    state: directory
+- name: 'place ssh public deploy key'
+  copy:
+    src: "files/{{ ssh_private_deploy_key }}"
+    dest: '/home/vagrant/.ssh/edu.iu.sca@deploy.pem'
+    mode: 0600
+...

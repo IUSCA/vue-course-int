@@ -1,0 +1,47 @@
+---
+# Checkout all rady related github repositories into sca directory
+- git:
+    repo: "git@github.com:{{ item.account }}/{{ item.remote_path }}.git"
+    dest: "/opt/sca/{{ item.local_path }}"
+    version: "{{ item.version }}"
+    update: false
+    accept_hostkey: true
+    key_file: "/root/.ssh/{{ ssh_private_deploy_key }}"
+  loop: "{{ github_repositories }}"
+
+# Place config.js for auth api
+- template:
+    src: 'templates/auth/api/config/index.js.j2'
+    dest: '/opt/sca/auth/api/config/index.js'
+
+# Place config.js for auth ui
+- template:
+    src: 'templates/auth/ui/config.js.j2'
+    dest: '/opt/sca/auth/ui/config.js'
+
+# Place config.js for event api
+- template:
+    src: 'templates/event/api/config/index.js.j2'
+    dest: '/opt/sca/event/api/config/index.js'
+
+# Install node modules using app root package.json
+- name: 'install application root level npm modules'
+  npm:
+    path: "/opt/sca/{{ item.local_path }}"
+  loop: "{{ github_repositories }}"
+  when: item.root == true
+
+# Install node modules using app ui package.json
+- name: 'install application ui level npm modules'
+  npm:
+    path: "/opt/sca/{{ item.local_path }}/ui"
+  loop: "{{ github_repositories }}"
+  when: item.ui == true
+
+# Install bower modules
+- name: 'install bower modules'
+  bower:
+    path: "/opt/sca/{{ item.local_path }}/{{ item.bower }}"
+  loop: "{{ github_repositories }}"
+  when: item.bower != false
+...

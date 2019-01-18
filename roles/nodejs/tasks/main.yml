@@ -1,0 +1,19 @@
+---
+- name: 'copy gpg key to filesystem'
+  copy:
+    src: 'files/NODESOURCE-GPG-SIGNING-KEY-EL'
+    dest: '/etc/pki/rpm-gpg/NODESOURCE-GPG-SIGNING-KEY-EL'
+- template:
+    src: 'templates/nodesource-el7.repo.j2'
+    dest: '/etc/yum.repos.d/nodesource-el7.repo'
+- name: 'install packages'
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ packages }}"
+- name: 'install modules'
+  npm:
+    name: "{{ item }}"
+    global: true
+  loop: "{{ modules }}"
+...

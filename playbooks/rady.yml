@@ -1,0 +1,11 @@
+---
+- name: 'setup rady application'
+  hosts: all
+  become: true
+  roles:
+    - sca
+    - git
+    - nginx
+    - nodejs
+    - rady
+...

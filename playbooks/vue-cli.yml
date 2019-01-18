@@ -1,0 +1,10 @@
+---
+- name: 'setup vue-cli application'
+  hosts: all
+  become: true
+  roles:
+    #- git
+    #- nodejs
+    - rbenv
+    - vue-cli
+...

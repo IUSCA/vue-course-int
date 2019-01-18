@@ -1,0 +1,8 @@
+---
+packages:
+  - 'nodejs'
+modules:
+  - 'pm2'
+  - 'bower'
+version: '8' # Valid values are: 11, 10, 8, and 6
+...

@@ -1,0 +1,9 @@
+---
+packages:
+  - 'tree'
+  - 'lynx'
+  - 'mlocate'
+  - 'vim'
+ssh_private_deploy_key: 'edu.iu.sca@deploy.pem'
+ssh_public_deploy_key: 'edu.iu.sca@deploy.pub'
+...

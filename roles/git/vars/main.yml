@@ -1,0 +1,6 @@
+---
+packages:
+  - 'git'
+centos:
+  version: 7
+...
